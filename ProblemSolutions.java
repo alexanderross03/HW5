@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Alexander Ross / 001
  *
  *   This java file contains the problem solutions of isSubSet, findKthLargest,
  *   and sort2Arrays methods. You should utilize the Java Collection Framework for
@@ -34,7 +34,18 @@ class ProblemSolutions {
 
         // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
 
-        return false;
+        // Create a HashSet from list1 for O(1) lookup time
+        Set<Integer> set = new HashSet<>();
+        for (int num : list1) {
+            set.add(num);
+        }
+        // Verify every element in list2 exists in the set
+        for (int num : list2) {
+            if (!set.contains(num)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -55,7 +66,15 @@ class ProblemSolutions {
 
         // ADD YOUR CODE HERE
 
-        return 0;
+        // Use a min-heap (PriorityQueue) to track the k largest elements
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : array) {
+            minHeap.add(num);
+            if (minHeap.size() > k) {
+                minHeap.poll(); // remove the smallest element to maintain size k
+            }
+        }
+        return minHeap.peek(); // kth largest element is at the top of the min-heap
     }
 
 
@@ -76,7 +95,22 @@ class ProblemSolutions {
 
         // ADD YOU CODE HERE
 
-        return null;
+        // Combine both arrays into one list
+        List<Integer> combinedList = new ArrayList<>();
+        for (int num : array1) {
+            combinedList.add(num);
+        }
+        for (int num : array2) {
+            combinedList.add(num);
+        }
+        // Sort the list using Collections.sort
+        Collections.sort(combinedList);
+        // Convert the sorted list back to an array
+        int[] sortedArray = new int[combinedList.size()];
+        for (int i = 0; i < combinedList.size(); i++) {
+            sortedArray[i] = combinedList.get(i);
+        }
+        return sortedArray;
     }
 
 }
